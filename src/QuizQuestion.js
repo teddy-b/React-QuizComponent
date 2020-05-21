@@ -5,6 +5,9 @@ import QuizQuestionButton from './QuizQuestionButton'
 class QuizQuestion extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      incorrectAnswer: false,
+    }
     this.handleClick = this.handleClick.bind(this)
   }
 
@@ -12,13 +15,21 @@ class QuizQuestion extends Component {
     const { quiz_question: { answer }, showNextQuestionHandler } = this.props
 
     if (buttonText === answer) {
+      this.setState({
+        incorrectAnswer: false
+      })
       showNextQuestionHandler()
+    } else {
+      this.setState({
+        incorrectAnswer: true
+      })
     }
   }
 
   render() {
     // the test requires not to use destructuring
     // const { quiz_question: { instruction_text, answer_options } } = this.props
+    const { incorrectAnswer } = this.state
 
     return (
       <main>
@@ -36,6 +47,7 @@ class QuizQuestion extends Component {
             ))}
           </ul>
         </section>
+        {incorrectAnswer ? <p className="error">Sorry, that's not right</p> : null}
       </main>
     )
   }
