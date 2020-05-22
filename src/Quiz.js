@@ -3,17 +3,16 @@ import React, { Component } from 'react'
 import QuizQuestion from './QuizQuestion'
 import QuizEnd from './QuizEnd'
 
-// the test requires to use let not const
-// const quizData = require('./quiz_data.json')
 let quizData = require('./quiz_data.json')
 
 class Quiz extends Component {
   constructor(props) {
-    super(props);
+    super(props)
     this.state = {
       quiz_position: 1,
     }
     this.showNextQuestion = this.showNextQuestion.bind(this)
+    this.handleResetClick = this.handleResetClick.bind(this)
   }
 
   showNextQuestion() {
@@ -22,16 +21,19 @@ class Quiz extends Component {
     }))
   }
 
+  handleResetClick() {
+    this.setState({
+      quiz_position: 1,
+    })
+  }
+
   render() {
-    // the test requires not to use destructuring
-    // const { quiz_position } = this.state
-    // const { quiz_questions } = quizData
     const isQuizEnd = this.state.quiz_position - 1 === quizData.quiz_questions.length
 
     return (
       <div>
         {isQuizEnd
-          ? <QuizEnd />
+          ? <QuizEnd resetClickHandler={this.handleResetClick}/>
           : <QuizQuestion
               quiz_question={quizData.quiz_questions[this.state.quiz_position - 1]}
               showNextQuestionHandler={this.showNextQuestion}
