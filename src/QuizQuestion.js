@@ -4,7 +4,7 @@ import QuizQuestionButton from './QuizQuestionButton'
 
 class QuizQuestion extends Component {
   constructor(props) {
-    super(props);
+    super(props)
     this.state = {
       incorrectAnswer: false,
     }
@@ -27,8 +27,6 @@ class QuizQuestion extends Component {
   }
 
   render() {
-    // the test requires not to use destructuring
-    // const { quiz_question: { instruction_text, answer_options } } = this.props
     const { incorrectAnswer } = this.state
 
     return (
